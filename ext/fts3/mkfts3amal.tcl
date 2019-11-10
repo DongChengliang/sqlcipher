@@ -106,6 +106,7 @@ foreach file {
    fts3.c
    fts3_hash.c
    fts3_porter.c
+   fts3_bigram.c
    fts3_tokenizer.c
    fts3_tokenizer1.c
 } {

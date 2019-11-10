@@ -58,7 +58,7 @@ LIBOBJ+= vdbe.o parse.o \
          callback.o complete.o ctime.o \
          date.o dbpage.o dbstat.o delete.o expr.o \
 	 fault.o fkey.o \
-         fts3.o fts3_aux.o fts3_expr.o fts3_hash.o fts3_icu.o fts3_porter.o \
+         fts3.o fts3_aux.o fts3_expr.o fts3_hash.o fts3_icu.o fts3_porter.o fts3_bigram.o \
          fts3_snippet.o fts3_tokenizer.o fts3_tokenizer1.o \
          fts3_tokenize_vtab.o \
 	 fts3_unicode.o fts3_unicode2.o \
@@ -215,6 +215,7 @@ SRC += \
   $(TOP)/ext/fts3/fts3_hash.h \
   $(TOP)/ext/fts3/fts3_icu.c \
   $(TOP)/ext/fts3/fts3_porter.c \
+  $(TOP)/ext/fts3/fts3_bigram.c \
   $(TOP)/ext/fts3/fts3_snippet.c \
   $(TOP)/ext/fts3/fts3_tokenizer.h \
   $(TOP)/ext/fts3/fts3_tokenizer.c \
@@ -788,6 +789,9 @@ fts3_snippet.o:	$(TOP)/ext/fts3/fts3_snippet.c $(HDR) $(EXTHDR)
 
 fts3_porter.o:	$(TOP)/ext/fts3/fts3_porter.c $(HDR) $(EXTHDR)
 	$(TCCX) -DSQLITE_CORE -c $(TOP)/ext/fts3/fts3_porter.c
+
+fts3_bigram.o:  $(TOP)/ext/fts3/fts3_bigram.c $(HDR) $(EXTHDR)
+	$(TCCX) -DSQLITE_CORE -c $(TOP)/ext/fts3/fts3_bigram.c
 
 fts3_tokenizer.o:	$(TOP)/ext/fts3/fts3_tokenizer.c $(HDR) $(EXTHDR)
 	$(TCCX) -DSQLITE_CORE -c $(TOP)/ext/fts3/fts3_tokenizer.c
