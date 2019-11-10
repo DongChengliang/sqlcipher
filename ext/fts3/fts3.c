@@ -3939,6 +3939,7 @@ static void hashDestroy(void *p){
 */
 void sqlite3Fts3SimpleTokenizerModule(sqlite3_tokenizer_module const**ppModule);
 void sqlite3Fts3PorterTokenizerModule(sqlite3_tokenizer_module const**ppModule);
+void sqlite3Fts3BigramTokenizerModule(sqlite3_tokenizer_module const**ppModule);
 #ifndef SQLITE_DISABLE_FTS3_UNICODE
 void sqlite3Fts3UnicodeTokenizer(sqlite3_tokenizer_module const**ppModule);
 #endif
@@ -3957,6 +3958,7 @@ int sqlite3Fts3Init(sqlite3 *db){
   Fts3Hash *pHash = 0;
   const sqlite3_tokenizer_module *pSimple = 0;
   const sqlite3_tokenizer_module *pPorter = 0;
+  const sqlite3_tokenizer_module *pBigram = 0;
 #ifndef SQLITE_DISABLE_FTS3_UNICODE
   const sqlite3_tokenizer_module *pUnicode = 0;
 #endif
@@ -3980,6 +3982,7 @@ int sqlite3Fts3Init(sqlite3 *db){
 
   sqlite3Fts3SimpleTokenizerModule(&pSimple);
   sqlite3Fts3PorterTokenizerModule(&pPorter);
+  sqlite3Fts3BigramTokenizerModule(&pBigram);
 
   /* Allocate and initialize the hash-table used to store tokenizers. */
   pHash = sqlite3_malloc(sizeof(Fts3Hash));
@@ -3992,7 +3995,8 @@ int sqlite3Fts3Init(sqlite3 *db){
   /* Load the built-in tokenizers into the hash table */
   if( rc==SQLITE_OK ){
     if( sqlite3Fts3HashInsert(pHash, "simple", 7, (void *)pSimple)
-     || sqlite3Fts3HashInsert(pHash, "porter", 7, (void *)pPorter) 
+     || sqlite3Fts3HashInsert(pHash, "porter", 7, (void *)pPorter)
+     || sqlite3Fts3HashInsert(pHash, "bigram", 7, (void *)pBigram)
 
 #ifndef SQLITE_DISABLE_FTS3_UNICODE
      || sqlite3Fts3HashInsert(pHash, "unicode61", 10, (void *)pUnicode) 
